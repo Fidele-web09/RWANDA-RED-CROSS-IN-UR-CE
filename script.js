@@ -4,11 +4,6 @@
 // Supabase Authentication
 // ========================================
 
-
-// ========================================
-// MOBILE MENU
-// ========================================
-
 function toggleMenu() {
     const menu = document.getElementById("navMenu");
 
@@ -33,11 +28,18 @@ if (signupForm) {
         const fullName =
             document.getElementById("fullName").value.trim();
 
-        const email =
-            document.getElementById("email").value.trim().toLowerCase();
+        const registrationNumber =
+            document
+                .getElementById("registrationNumber")
+                .value
+                .trim();
 
-        const studentId =
-            document.getElementById("studentId").value.trim();
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
 
         const password =
             document.getElementById("password").value;
@@ -76,7 +78,18 @@ if (signupForm) {
         }
 
 
-        // Show loading message
+        // Check registration number
+        if (!registrationNumber) {
+
+            message.textContent =
+                "Please enter your registration number.";
+
+            message.style.color = "#d71920";
+
+            return;
+        }
+
+
         message.textContent =
             "Creating your account...";
 
@@ -101,42 +114,39 @@ if (signupForm) {
 
                             full_name: fullName,
 
-                            student_id: studentId,
+                            registration_number:
+                                registrationNumber,
 
                             role: role
-
                         }
-
                     }
-
                 });
 
 
-            // Supabase error
             if (error) {
+
+                console.error(error);
 
                 message.textContent =
                     error.message;
 
-                message.style.color = "#d71920";
+                message.style.color =
+                    "#d71920";
 
                 return;
             }
 
 
-            // Account created
             if (data.user) {
 
                 message.textContent =
                     "Account created successfully! Please check your email to confirm your account.";
 
-                message.style.color = "green";
+                message.style.color =
+                    "green";
 
-                /*
-                 * Do NOT redirect immediately to login.
-                 * The user needs to confirm the email first.
-                 */
-
+                // Do not immediately redirect.
+                // Let the user read the confirmation message.
             }
 
         } catch (error) {
@@ -146,12 +156,10 @@ if (signupForm) {
             message.textContent =
                 "Something went wrong. Please try again.";
 
-            message.style.color = "#d71920";
-
+            message.style.color =
+                "#d71920";
         }
-
     });
-
 }
 
 
@@ -159,86 +167,93 @@ if (signupForm) {
 // LOGIN
 // ========================================
 
-const loginForm = document.getElementById("loginForm");
+const loginForm =
+    document.getElementById("loginForm");
 
 if (loginForm) {
 
-    loginForm.addEventListener("submit", async function(event) {
+    loginForm.addEventListener(
+        "submit",
+        async function(event) {
 
-        event.preventDefault();
+            event.preventDefault();
 
-        const email =
-            document.getElementById("loginEmail")
-            .value
-            .trim()
-            .toLowerCase();
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
 
-        const password =
-            document.getElementById("loginPassword").value;
+            const password =
+                document.getElementById("loginPassword").value;
 
-        const message =
-            document.getElementById("loginMessage");
-
-        message.textContent =
-            "Logging in...";
-
-        message.style.color = "#555";
+            const message =
+                document.getElementById("loginMessage");
 
 
-        try {
+            message.textContent =
+                "Logging in...";
 
-            const { data, error } =
-                await supabaseClient.auth.signInWithPassword({
-
-                    email: email,
-
-                    password: password
-
-                });
+            message.style.color =
+                "#555";
 
 
-            if (error) {
+            try {
 
-                message.textContent =
-                    "Incorrect email or password.";
+                const { data, error } =
+                    await supabaseClient.auth
+                        .signInWithPassword({
 
-                message.style.color = "#d71920";
+                            email: email,
+
+                            password: password
+                        });
+
+
+                if (error) {
+
+                    message.textContent =
+                        "Incorrect email or password.";
+
+                    message.style.color =
+                        "#d71920";
+
+                    console.error(error);
+
+                    return;
+                }
+
+
+                if (data.user) {
+
+                    message.textContent =
+                        "Login successful! Welcome.";
+
+                    message.style.color =
+                        "green";
+
+
+                    setTimeout(function() {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    }, 1000);
+                }
+
+            } catch (error) {
 
                 console.error(error);
 
-                return;
-            }
-
-
-            if (data.user) {
-
                 message.textContent =
-                    "Login successful! Welcome.";
+                    "Something went wrong. Please try again.";
 
-                message.style.color = "green";
-
-                setTimeout(function() {
-
-                    window.location.href =
-                        "dashboard.html";
-
-                }, 1000);
-
+                message.style.color =
+                    "#d71920";
             }
-
-        } catch (error) {
-
-            console.error(error);
-
-            message.textContent =
-                "Something went wrong. Please try again.";
-
-            message.style.color = "#d71920";
-
         }
-
-    });
-
+    );
 }
 
 
@@ -253,6 +268,7 @@ async function logoutUser() {
         const { error } =
             await supabaseClient.auth.signOut();
 
+
         if (error) {
 
             console.error(error);
@@ -260,8 +276,10 @@ async function logoutUser() {
             return;
         }
 
+
         window.location.href =
             "index.html";
+
 
     } catch (error) {
 
@@ -269,7 +287,5 @@ async function logoutUser() {
 
         window.location.href =
             "index.html";
-
     }
-
 }
