@@ -94,6 +94,9 @@ if (signupForm) {
 
                     options: {
 
+                        emailRedirectTo:
+                            "https://fidele-web09.github.io/RWANDA-RED-CROSS-IN-UR-CE/",
+
                         data: {
 
                             full_name: fullName,
@@ -129,14 +132,10 @@ if (signupForm) {
 
                 message.style.color = "green";
 
-
-                // Redirect after a short delay
-                setTimeout(function() {
-
-                    window.location.href =
-                        "login.html";
-
-                }, 2500);
+                /*
+                 * Do NOT redirect immediately to login.
+                 * The user needs to confirm the email first.
+                 */
 
             }
 
@@ -156,7 +155,6 @@ if (signupForm) {
 }
 
 
-
 // ========================================
 // LOGIN
 // ========================================
@@ -169,24 +167,18 @@ if (loginForm) {
 
         event.preventDefault();
 
-
         const email =
             document.getElementById("loginEmail")
             .value
             .trim()
             .toLowerCase();
 
-
         const password =
-            document.getElementById("loginPassword")
-            .value;
-
+            document.getElementById("loginPassword").value;
 
         const message =
             document.getElementById("loginMessage");
 
-
-        // Show loading message
         message.textContent =
             "Logging in...";
 
@@ -205,7 +197,6 @@ if (loginForm) {
                 });
 
 
-            // Login error
             if (error) {
 
                 message.textContent =
@@ -219,14 +210,12 @@ if (loginForm) {
             }
 
 
-            // Successful login
             if (data.user) {
 
                 message.textContent =
                     "Login successful! Welcome.";
 
                 message.style.color = "green";
-
 
                 setTimeout(function() {
 
@@ -253,7 +242,6 @@ if (loginForm) {
 }
 
 
-
 // ========================================
 // LOGOUT
 // ========================================
@@ -272,10 +260,8 @@ async function logoutUser() {
             return;
         }
 
-
         window.location.href =
             "index.html";
-
 
     } catch (error) {
 
