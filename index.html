@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rwanda Red Cross - UR-CE Club</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #d32f2f;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        header h1 {
+            font-size: 1.5rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            background: #ffebee;
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 3px solid #d32f2f;
+        }
+        .hero h2 {
+            color: #b71c1c;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 1.5rem auto;
+        }
+        .btn {
+            display: inline-block;
+            background: #d32f2f;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #b71c1c;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 5px;
+            border-top: 4px solid #d32f2f;
+        }
+        .card h3 {
+            color: #b71c1c;
+            margin-bottom: 0.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #333;
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>UR-CE Red Cross Club</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#principles">Principles</a>
+            <a href="#first-aid">First Aid</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Humanity, Service, and Emergency Readiness</h2>
+        <p>Official Red Cross Youth Club at University of Rwanda - College of Education, Rukara Campus.</p>
+        <a href="#contact" class="btn">Get Involved</a>
+    </section>
+
+    <div class="container">
+        
+        <section id="about" class="section">
+            <h2>About Our Club</h2>
+            <p>The UR-CE Red Cross Club is a student-led humanitarian movement dedicated to promoting health, disaster preparedness, and first aid awareness across Rukara Campus and the surrounding community. Through volunteerism and practical training, we empower students to act as immediate responders during emergencies.</p>
+        </section>
+
+        <section id="principles" class="section">
+            <h2>Fundamental Principles</h2>
+            <div class="principles-grid">
+                <div class="card">
+                    <h3>Humanity</h3>
+                    <p>Preventing and alleviating human suffering wherever it may be found, protecting life and health.</p>
+                </div>
+                <div class="card">
+                    <h3>Impartiality</h3>
+                    <p>Making no discrimination based on nationality, race, religious beliefs, class, or political opinions.</p>
+                </div>
+                <div class="card">
+                    <h3>Voluntary Service</h3>
+                    <p>A prompt voluntary relief movement not prompted in any manner by desire for financial gain.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="first-aid" class="section">
+            <h2>Basic First Aid Guidelines</h2>
+            <ul>
+                <li><strong>DRCAB Protocol:</strong> Check Danger, Response, Circulation, Airway, and Breathing during accidents.</li>
+                <li><strong>Fainting:</strong> Place the individual in the recovery position and keep airway clear.</li>
+                <li><strong>Bleeding:</strong> Apply direct pressure to the wound with a clean cloth or bandage.</li>
+                <li><strong>Burns:</strong> Cool the affected area with clean running water for at least 10–15 minutes.</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact & Join Us</h2>
+            <p><strong>Campus Location:</strong> University of Rwanda - College of Education, Rukara Campus</p>
+            <p><strong>Email:</strong> urce.redcross@gmail.com</p>
+            <p><strong>Weekly Meetings:</strong> Check campus announcements for times and locations.</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; UR-CE Red Cross Club | Rukara Campus</p>
+    </footer>
+
+</body>
+</html>
