@@ -1,1297 +1,730 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Member Dashboard | UR-CE Red Cross</title>
+    <title>Dashboard - UR-CE Red Cross</title>
+
+    <link rel="stylesheet" href="style.css">
 
     <style>
+        /* ================================
+           DASHBOARD
+        ================================= */
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
+            margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f6f8;
-            color: #333;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        .dashboard-container {
+            display: flex;
             min-height: 100vh;
         }
 
-        /* =========================
-           ANIMATED BACKGROUND CROSSES
-        ========================== */
-
-        .floating-cross {
-            position: fixed;
-            color: rgba(215, 25, 32, 0.06);
-            font-size: 100px;
-            pointer-events: none;
-            z-index: 0;
-            animation: floatCross 8s ease-in-out infinite;
-        }
-
-        .cross-1 {
-            top: 100px;
-            right: 5%;
-        }
-
-        .cross-2 {
-            top: 55%;
-            left: 20%;
-            font-size: 130px;
-            animation-delay: 2s;
-        }
-
-        .cross-3 {
-            bottom: 5%;
-            right: 15%;
-            font-size: 160px;
-            animation-delay: 4s;
-        }
-
-        @keyframes floatCross {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-25px) rotate(8deg);
-            }
-
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-        }
-
-        /* =========================
-           TOP BAR
-        ========================== */
-
-        .topbar {
-            height: 72px;
-            background: linear-gradient(
-                135deg,
-                #d71920,
-                #a90000
-            );
-
-            color: white;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 28px;
-
-            position: sticky;
-            top: 0;
-
-            z-index: 1000;
-
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.18);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-cross {
-            width: 45px;
-            height: 45px;
-
-            background: white;
-            color: #d71920;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 27px;
-            font-weight: bold;
-        }
-
-        .brand-text h2 {
-            font-size: 19px;
-        }
-
-        .brand-text small {
-            opacity: 0.85;
-        }
-
-        .top-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .welcome-user {
-            font-size: 14px;
-        }
-
-        .logout-btn {
-            background: white;
-            color: #d71920;
-
-            border: none;
-
-            padding: 10px 18px;
-
-            border-radius: 7px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: #f1f1f1;
-            transform: translateY(-1px);
-        }
-
-        /* =========================
-           LAYOUT
-        ========================== */
-
-        .layout {
-            display: flex;
-            min-height: calc(100vh - 72px);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* =========================
+        /* ================================
            SIDEBAR
-        ========================== */
+        ================================= */
 
         .sidebar {
             width: 250px;
-
-            background: #850000;
-
+            background: #b40000;
             color: white;
-
-            padding: 25px 15px;
-
-            flex-shrink: 0;
+            padding: 25px 18px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
         }
 
-        .sidebar-title {
+        .sidebar-logo {
             text-align: center;
-
-            font-size: 17px;
-
-            margin-bottom: 25px;
-
-            padding-bottom: 18px;
-
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
         }
 
-        .sidebar a {
+        .sidebar-logo .cross {
+            width: 55px;
+            height: 55px;
+            background: white;
+            color: #b40000;
+            border-radius: 50%;
             display: flex;
+            justify-content: center;
             align-items: center;
-
-            gap: 12px;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 13px 15px;
-
-            margin-bottom: 6px;
-
-            border-radius: 8px;
-
-            transition: 0.25s;
-
-            font-size: 14px;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #d71920;
-        }
-
-        /* =========================
-           MAIN CONTENT
-        ========================== */
-
-        .content {
-            flex: 1;
-            padding: 30px;
-
-            max-width: 1500px;
-
-            margin: 0 auto;
-
-            width: 100%;
-        }
-
-        /* =========================
-           WELCOME BANNER
-        ========================== */
-
-        .welcome-banner {
-            background:
-                linear-gradient(
-                    135deg,
-                    #d71920,
-                    #950000
-                );
-
-            color: white;
-
-            border-radius: 18px;
-
-            padding: 32px;
-
-            margin-bottom: 25px;
-
-            position: relative;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 8px 25px rgba(215, 25, 32, 0.2);
-        }
-
-        .welcome-banner::after {
-            content: "✚";
-
-            position: absolute;
-
-            right: 30px;
-            top: -25px;
-
-            font-size: 180px;
-
-            color: rgba(255, 255, 255, 0.08);
-        }
-
-        .welcome-banner h1 {
+            margin: auto;
             font-size: 28px;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .welcome-banner p {
-            opacity: 0.92;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* =========================
-           QUICK ACCESS
-        ========================== */
-
-        .section-title {
-            margin-bottom: 18px;
-
-            color: #7d0000;
-
-            font-size: 21px;
-        }
-
-        .quick-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 18px;
-
-            margin-bottom: 30px;
-        }
-
-        .quick-card {
-            background: white;
-
-            padding: 23px;
-
-            border-radius: 14px;
-
-            box-shadow:
-                0 4px 16px rgba(0, 0, 0, 0.07);
-
-            border-top: 4px solid #d71920;
-
-            transition: 0.25s;
-        }
-
-        .quick-card:hover {
-            transform: translateY(-4px);
-
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .quick-icon {
-            width: 48px;
-            height: 48px;
-
-            border-radius: 50%;
-
-            background: #ffe5e5;
-
-            color: #d71920;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 23px;
-
-            margin-bottom: 15px;
-        }
-
-        .quick-card h3 {
-            color: #8b0000;
-
-            margin-bottom: 8px;
-        }
-
-        .quick-card p {
-            font-size: 14px;
-
-            color: #666;
-
-            line-height: 1.5;
-        }
-
-        /* =========================
-           PROFILE
-        ========================== */
-
-        .profile-section {
-            background: white;
-
-            padding: 28px;
-
-            border-radius: 16px;
-
-            margin-bottom: 30px;
-
-            box-shadow:
-                0 4px 16px rgba(0, 0, 0, 0.07);
-        }
-
-        .profile-header {
-            display: flex;
-
-            align-items: center;
-
-            gap: 17px;
-
-            padding-bottom: 22px;
-
-            margin-bottom: 22px;
-
-            border-bottom: 1px solid #eee;
-        }
-
-        .avatar {
-            width: 70px;
-            height: 70px;
-
-            border-radius: 50%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #d71920,
-                    #8b0000
-                );
-
-            color: white;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 30px;
-
             font-weight: bold;
-
-            box-shadow:
-                0 5px 15px rgba(215, 25, 32, 0.25);
         }
 
-        .profile-header h2 {
-            margin-bottom: 5px;
+        .sidebar-logo h2 {
+            font-size: 18px;
+            margin: 12px 0 3px;
+        }
 
+        .sidebar-logo p {
+            font-size: 12px;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 7px;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 14px;
+            border-radius: 7px;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logout-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 7px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: #b40000;
+        }
+
+        /* ================================
+           MAIN CONTENT
+        ================================= */
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        .topbar {
+            background: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: 24px;
             color: #333;
         }
 
-        .profile-header p {
-            color: #777;
-
-            font-size: 14px;
+        .top-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
+        .top-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #b40000;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        /* ================================
+           WELCOME
+        ================================= */
+
+        .welcome-card {
+            background: linear-gradient(135deg, #b40000, #d71920);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .welcome-card h2 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .welcome-card p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* ================================
+           STATS
+        ================================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 10px;
+            border-left: 5px solid #b40000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .stat-card h3 {
+            margin: 0 0 8px;
+            font-size: 28px;
+            color: #b40000;
+        }
+
+        .stat-card p {
+            margin: 0;
+            color: #666;
+        }
+
+        /* ================================
+           SECTION
+        ================================= */
+
+        .dashboard-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            margin: 0 0 7px;
+            color: #b40000;
+        }
+
+        .section-header p {
+            margin: 0;
+            color: #666;
+        }
+
+        /* ================================
+           PROFILE
+        ================================= */
 
         .profile-grid {
             display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
 
-            grid-template-columns:
-                repeat(4, 1fr);
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            background: #b40000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            font-weight: bold;
+        }
 
-            gap: 15px;
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
         .profile-item {
-            background: #f8f9fa;
-
-            border-radius: 9px;
-
-            padding: 16px;
-
-            border-left: 3px solid #d71920;
+            background: #f7f7f7;
+            padding: 13px;
+            border-radius: 7px;
         }
 
         .profile-item strong {
             display: block;
-
-            color: #777;
-
             font-size: 12px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 7px;
+            color: #777;
+            margin-bottom: 4px;
         }
 
-        .profile-item span {
-            font-weight: bold;
+        /* ================================
+           CARDS
+        ================================= */
 
-            color: #333;
-
-            font-size: 14px;
-
-            word-break: break-word;
-        }
-
-        /* =========================
-           TWO COLUMN SECTIONS
-        ========================== */
-
-        .two-columns {
+        .cards-grid {
             display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 22px;
-
-            margin-bottom: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
         }
 
-        .content-card {
-            background: white;
-
-            padding: 25px;
-
-            border-radius: 15px;
-
-            box-shadow:
-                0 4px 16px rgba(0, 0, 0, 0.07);
+        .info-card {
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 9px;
         }
 
-        .content-card h2 {
-            color: #8b0000;
-
-            margin-bottom: 18px;
-
-            font-size: 20px;
+        .info-card h3 {
+            color: #b40000;
+            margin-top: 0;
         }
 
-        .content-card p {
-            line-height: 1.6;
-
+        .info-card p {
             color: #555;
-
-            font-size: 14px;
-
-            margin-bottom: 12px;
+            line-height: 1.6;
         }
 
-        /* =========================
-           PROGRAM LIST
-        ========================== */
+        /* ================================
+           DOCUMENTS
+        ================================= */
 
-        .program-list {
-            list-style: none;
-        }
-
-        .program-list li {
-            padding: 12px 0;
-
-            border-bottom: 1px solid #eee;
-
-            display: flex;
-
-            gap: 10px;
-
-            align-items: center;
-        }
-
-        .program-list li:last-child {
-            border-bottom: none;
-        }
-
-        .program-icon {
-            color: #d71920;
-
-            font-size: 18px;
-        }
-
-        /* =========================
-           MEETING CARD
-        ========================== */
-
-        .meeting-box {
-            background: #fff5f5;
-
-            border: 1px solid #ffd5d5;
-
+        .documents-box {
+            background: #fafafa;
+            border: 2px dashed #ddd;
             border-radius: 10px;
-
-            padding: 17px;
-
-            margin-top: 10px;
+            padding: 35px;
+            text-align: center;
         }
 
-        .meeting-row {
-            display: flex;
-
-            gap: 10px;
-
+        .documents-icon {
+            font-size: 50px;
             margin-bottom: 10px;
-
-            font-size: 14px;
         }
 
-        .meeting-row:last-child {
-            margin-bottom: 0;
+        .documents-box h3 {
+            margin: 5px 0 8px;
+            color: #333;
         }
 
-        .meeting-row strong {
-            min-width: 75px;
-
-            color: #8b0000;
+        .documents-box p {
+            color: #666;
+            margin-bottom: 20px;
         }
 
-        /* =========================
-           NEWS / ANNOUNCEMENTS
-        ========================== */
+        .documents-main-button {
+            display: inline-block;
+            background: #b40000;
+            color: white;
+            text-decoration: none;
+            padding: 13px 25px;
+            border-radius: 7px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .documents-main-button:hover {
+            background: #8f0000;
+        }
+
+        /* ================================
+           MEETING
+        ================================= */
+
+        .meeting-card {
+            background: #fff5f5;
+            border-left: 5px solid #b40000;
+            padding: 20px;
+            border-radius: 7px;
+        }
+
+        .meeting-card h3 {
+            margin-top: 0;
+            color: #b40000;
+        }
+
+        /* ================================
+           ANNOUNCEMENT
+        ================================= */
 
         .announcement {
-            border-left: 4px solid #d71920;
-
-            background: #fafafa;
-
-            padding: 14px 16px;
-
+            padding: 18px;
+            background: #f8f8f8;
+            border-radius: 8px;
             margin-bottom: 12px;
-
-            border-radius: 0 8px 8px 0;
         }
 
         .announcement:last-child {
             margin-bottom: 0;
         }
 
-        .announcement h4 {
-            color: #8b0000;
-
-            margin-bottom: 5px;
+        .announcement h3 {
+            margin-top: 0;
         }
 
-        .announcement p {
-            margin: 0;
-
-            font-size: 13px;
-        }
-
-        /* =========================
-        <section id="documents" class="dashboard-section">
-    <div class="section-header">
-        <h2>📚 Documents</h2>
-        <p>Access all Red Cross training books and learning materials.</p>
-    </div>
-
-    <div class="documents-box">
-        <a href="documents/" class="documents-main-button">
-            📚 Open Documents
-        </a>
-    </div>
-</section>
-        }
-
-        .document {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            background: #f8f9fa;
-
-            padding: 13px;
-
-            border-radius: 8px;
-        }
-
-        .document-name {
-            font-size: 14px;
-
-            font-weight: bold;
-        }
-
-        .document-btn {
-            text-decoration: none;
-
-            background: #d71920;
-
-            color: white;
-
-            padding: 7px 12px;
-
-            border-radius: 6px;
-
-            font-size: 12px;
-        }
-
-        /* =========================
-           RED CROSS INFORMATION
-        ========================== */
-
-        .redcross-info {
-            background:
-                linear-gradient(
-                    135deg,
-                    #fff,
-                    #fff5f5
-                );
-
-            border: 1px solid #ffdede;
-
-            border-radius: 15px;
-
-            padding: 25px;
-
-            margin-bottom: 30px;
-        }
-
-        .redcross-info h2 {
-            color: #a00000;
-
-            margin-bottom: 12px;
-        }
-
-        .stats {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 15px;
-
-            margin-top: 20px;
-        }
-
-        .stat {
-            text-align: center;
-
-            background: white;
-
-            padding: 18px;
-
-            border-radius: 10px;
-
-            box-shadow:
-                0 3px 10px rgba(0,0,0,0.05);
-        }
-
-        .stat-number {
-            display: block;
-
-            font-size: 25px;
-
-            font-weight: bold;
-
-            color: #d71920;
-
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-
-            color: #777;
-        }
-
-        /* =========================
+        /* ================================
            FOOTER
-        ========================== */
+        ================================= */
 
-        footer {
+        .dashboard-footer {
             text-align: center;
-
-            padding: 30px 15px;
-
+            padding: 25px;
             color: #777;
-
             font-size: 13px;
         }
 
-        footer strong {
-            color: #a00000;
-        }
-
-        /* =========================
+        /* ================================
            MOBILE
-        ========================== */
+        ================================= */
 
-        @media (max-width: 1100px) {
-
-            .quick-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .profile-grid {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
 
             .sidebar {
-                display: none;
+                width: 210px;
             }
 
-            .content {
-                padding: 20px;
+            .main-content {
+                margin-left: 210px;
+                width: calc(100% - 210px);
             }
 
-            .two-columns {
-                grid-template-columns: 1fr;
+            .stats-grid,
+            .cards-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .dashboard-container {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
             }
 
             .topbar {
-                padding: 0 15px;
+                position: relative;
+                padding: 15px 20px;
             }
 
-            .welcome-user {
-                display: none;
+            .content {
+                padding: 18px;
             }
 
-        }
-
-        @media (max-width: 600px) {
-
-            .quick-grid {
+            .stats-grid,
+            .cards-grid,
+            .profile-info {
                 grid-template-columns: 1fr;
             }
 
             .profile-grid {
                 grid-template-columns: 1fr;
+                text-align: center;
             }
 
-            .stats {
-                grid-template-columns: 1fr;
+            .profile-avatar {
+                margin: auto;
             }
-
-            .welcome-banner {
-                padding: 25px;
-            }
-
-            .welcome-banner h1 {
-                font-size: 22px;
-            }
-
-            .profile-section,
-            .content-card,
-            .redcross-info {
-                padding: 20px;
-            }
-
-            .brand-text small {
-                display: none;
-            }
-
-            .brand-text h2 {
-                font-size: 16px;
-            }
-
-            .brand-cross {
-                width: 38px;
-                height: 38px;
-                font-size: 22px;
-            }
-
         }
-
     </style>
 </head>
 
-
 <body>
 
+<div class="dashboard-container">
 
-    <!-- =========================
-         FLOATING RED CROSS SYMBOLS
-    ========================== -->
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
 
-    <div class="floating-cross cross-1">✚</div>
-    <div class="floating-cross cross-2">✚</div>
-    <div class="floating-cross cross-3">✚</div>
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="cross">✚</div>
+
+            <h2>UR-CE Red Cross</h2>
+
+            <p>Rukara Campus</p>
+
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="#dashboard">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="#profile">👤 My Profile</a>
+            </li>
+
+            <li>
+                <a href="#programs">📚 Programs</a>
+            </li>
+
+            <li>
+                <a href="#first-aid">🩹 First Aid</a>
+            </li>
+
+            <li>
+                <a href="#training">🎓 Practical Training</a>
+            </li>
+
+            <li>
+                <a href="#documents">📄 Documents</a>
+            </li>
+
+            <li>
+                <a href="#meetings">📅 Meetings & Events</a>
+            </li>
+
+            <li>
+                <a href="#announcements">📢 Announcements</a>
+            </li>
+
+        </ul>
+
+        <button class="logout-btn" onclick="logoutUser()">
+            🚪 Sign Out
+        </button>
+
+    </aside>
 
 
-    <!-- =========================
-         TOP BAR
-    ========================== -->
+    <!-- ================================
+         MAIN CONTENT
+    ================================= -->
 
-    <header class="topbar">
+    <main class="main-content">
 
-        <div class="brand">
+        <!-- TOP BAR -->
 
-            <div class="brand-cross">
-                ✚
+        <header class="topbar">
+
+            <h1>Member Dashboard</h1>
+
+            <div class="top-user">
+
+                <span id="topUserName">
+                    Member
+                </span>
+
+                <div class="top-avatar" id="topAvatar">
+                    M
+                </div>
+
             </div>
 
-            <div class="brand-text">
+        </header>
+
+
+        <div class="content">
+
+            <!-- ================================
+                 WELCOME
+            ================================= -->
+
+            <section id="dashboard" class="welcome-card">
 
                 <h2>
-                    UR-CE Red Cross
+                    Welcome, <span id="userName">Member</span>!
                 </h2>
 
-                <small>
-                    Member Portal
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <div class="top-actions">
-
-            <span
-                class="welcome-user"
-                id="topUserName">
-
-                Member
-
-            </span>
-
-
-            <button
-                class="logout-btn"
-                onclick="logoutUser()">
-
-                Logout
-
-            </button>
-
-        </div>
-
-    </header>
-
-
-
-    <!-- =========================
-         PAGE LAYOUT
-    ========================== -->
-
-    <div class="layout">
-
-
-        <!-- =========================
-             SIDEBAR
-        ========================== -->
-
-        <aside class="sidebar">
-
-            <div class="sidebar-title">
-
-                <strong>
-                    Member Portal
-                </strong>
-
-            </div>
-
-
-            <a
-                href="#dashboard"
-                class="active">
-
-                🏠
-                Dashboard
-
-            </a>
-
-
-            <a href="#profile">
-
-                👤
-                My Profile
-
-            </a>
-
-
-            <a href="#programs">
-
-                ❤️
-                Programs
-
-            </a>
-
-
-            <a href="#firstaid">
-
-                🩺
-                First Aid
-
-            </a>
-
-
-            <a href="#volunteering">
-
-                🤝
-                Volunteering
-
-            </a>
-
-
-            <a href="#meetings">
-
-                📅
-                Meetings & Events
-
-            </a>
-
-
-            <a href="#announcements">
-
-                📢
-                Announcements
-
-            </a>
-
-
-            <a href="#documents">
-
-                📄
-                Documents
-
-            </a>
-
-
-            <a href="index.html">
-
-                🌐
-                Main Website
-
-            </a>
-
-        </aside>
-
-
-
-        <!-- =========================
-             MAIN CONTENT
-        ========================== -->
-
-        <main class="content">
-
-
-            <!-- WELCOME -->
-
-            <section
-                class="welcome-banner"
-                id="dashboard">
-
-                <h1>
-
-                    Welcome,
-                    <span id="userName">
-                        Member
-                    </span>!
-
-                </h1>
-
                 <p>
-
-                    Welcome to the
-                    Rwanda Red Cross
-                    UR-CE Member Portal.
-
-                    Stay connected with
-                    humanitarian activities,
-                    training and volunteering.
-
+                    Welcome to the Rwanda Red Cross Club at
+                    University of Rwanda – College of Education,
+                    Rukara Campus.
                 </p>
 
             </section>
 
 
+            <!-- ================================
+                 STATISTICS
+            ================================= -->
 
-            <!-- =========================
-                 QUICK ACCESS
-            ========================== -->
+            <div class="stats-grid">
 
-            <h2 class="section-title">
-                Quick Access
-            </h2>
+                <div class="stat-card">
 
+                    <h3>30</h3>
 
-            <section class="quick-grid">
-
-
-                <div class="quick-card">
-
-                    <div class="quick-icon">
-                        🩺
-                    </div>
-
-                    <h3>
-                        First Aid
-                    </h3>
-
-                    <p>
-                        Learn basic first aid,
-                        emergency response and
-                        safety practices.
-                    </p>
+                    <p>Branches</p>
 
                 </div>
 
 
+                <div class="stat-card">
 
-                <div
-                    class="quick-card"
-                    id="volunteering">
+                    <h3>31</h3>
 
-                    <div class="quick-icon">
-                        🤝
-                    </div>
-
-                    <h3>
-                        Volunteering
-                    </h3>
-
-                    <p>
-                        Participate in
-                        humanitarian and
-                        community activities.
-                    </p>
+                    <p>Local Units</p>
 
                 </div>
 
 
+                <div class="stat-card">
 
-                <div class="quick-card">
+                    <h3>69,304</h3>
 
-                    <div class="quick-icon">
-                        🛡️
-                    </div>
-
-                    <h3>
-                        Preparedness
-                    </h3>
-
-                    <p>
-                        Build knowledge about
-                        disaster preparedness
-                        and emergency awareness.
-                    </p>
+                    <p>Volunteers</p>
 
                 </div>
 
+            </div>
 
 
-                <div class="quick-card">
-
-                    <div class="quick-icon">
-                        📢
-                    </div>
-
-                    <h3>
-                        Announcements
-                    </h3>
-
-                    <p>
-                        Stay updated with
-                        UR-CE Red Cross
-                        activities and events.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =========================
+            <!-- ================================
                  PROFILE
-            ========================== -->
+            ================================= -->
 
-            <section
-                class="profile-section"
-                id="profile">
+            <section id="profile" class="dashboard-section">
 
+                <div class="section-header">
 
-                <div class="profile-header">
+                    <h2>👤 My Profile</h2>
 
-                    <div
-                        class="avatar"
-                        id="profileAvatar">
-
-                        M
-
-                    </div>
-
-
-                    <div>
-
-                        <h2>
-                            My Profile
-                        </h2>
-
-                        <p>
-                            UR-CE Red Cross
-                            Member Information
-                        </p>
-
-                    </div>
+                    <p>
+                        Your UR-CE Red Cross membership information.
+                    </p>
 
                 </div>
-
 
 
                 <div class="profile-grid">
 
-
-                    <div class="profile-item">
-
-                        <strong>
-                            Full Name
-                        </strong>
-
-                        <span id="profileName">
-                            Loading...
-                        </span>
-
+                    <div
+                        class="profile-avatar"
+                        id="profileAvatar"
+                    >
+                        M
                     </div>
 
 
+                    <div class="profile-info">
 
-                    <div class="profile-item">
+                        <div class="profile-item">
 
-                        <strong>
-                            Registration Number
-                        </strong>
+                            <strong>Full Name</strong>
 
-                        <span id="profileRegistrationNumber">
-                            Loading...
-                        </span>
+                            <span id="profileName">
+                                Member
+                            </span>
 
-                    </div>
-
+                        </div>
 
 
-                    <div class="profile-item">
+                        <div class="profile-item">
 
-                        <strong>
-                            Email Address
-                        </strong>
+                            <strong>Registration Number</strong>
 
-                        <span id="profileEmail">
-                            Loading...
-                        </span>
+                            <span id="profileRegistrationNumber">
+                                Not provided
+                            </span>
 
-                    </div>
+                        </div>
 
 
+                        <div class="profile-item">
 
-                    <div class="profile-item">
+                            <strong>Email</strong>
 
-                        <strong>
-                            Role
-                        </strong>
+                            <span id="profileEmail">
+                                Not provided
+                            </span>
 
-                        <span id="profileRole">
-                            Loading...
-                        </span>
-
-                    </div>
+                        </div>
 
 
+                        <div class="profile-item">
 
-                    <div class="profile-item">
+                            <strong>Role</strong>
 
-                        <strong>
-                            Campus
-                        </strong>
+                            <span id="profileRole">
+                                Member
+                            </span>
 
-                        <span>
-                            Rukara Campus
-                        </span>
-
-                    </div>
+                        </div>
 
 
+                        <div class="profile-item">
 
-                    <div class="profile-item">
+                            <strong>Campus</strong>
 
-                        <strong>
-                            Institution
-                        </strong>
+                            <span>
+                                Rukara Campus
+                            </span>
 
-                        <span>
-                            University of Rwanda
-                        </span>
-
-                    </div>
+                        </div>
 
 
+                        <div class="profile-item">
 
-                    <div class="profile-item">
+                            <strong>Institution</strong>
 
-                        <strong>
-                            Organization
-                        </strong>
+                            <span>
+                                University of Rwanda
+                            </span>
 
-                        <span>
-                            UR-CE Red Cross Club
-                        </span>
-
-                    </div>
+                        </div>
 
 
+                        <div class="profile-item">
 
-                    <div class="profile-item">
+                            <strong>Organization</strong>
 
-                        <strong>
-                            Membership Status
-                        </strong>
+                            <span>
+                                Rwanda Red Cross
+                            </span>
 
-                        <span>
-                            Active
-                        </span>
+                        </div>
+
+
+                        <div class="profile-item">
+
+                            <strong>Membership Status</strong>
+
+                            <span>
+                                Active Member
+                            </span>
+
+                        </div>
 
                     </div>
 
@@ -1300,62 +733,57 @@
             </section>
 
 
+            <!-- ================================
+                 PROGRAMS
+            ================================= -->
 
-            <!-- =========================
-                 RWANDAN RED CROSS
-            ========================== -->
+            <section id="programs" class="dashboard-section">
 
-            <section class="redcross-info">
+                <div class="section-header">
 
-                <h2>
-                    Rwandan Red Cross
-                </h2>
+                    <h2>📚 Red Cross Programs</h2>
 
-                <p>
-                    The UR-CE Red Cross Club is a
-                    campus-based community supporting
-                    humanitarian values, volunteering,
-                    first aid awareness and community
-                    service.
-                </p>
+                    <p>
+                        Activities and programs available to members.
+                    </p>
 
-                <div class="stats">
+                </div>
 
-                    <div class="stat">
 
-                        <span class="stat-number">
-                            30
-                        </span>
+                <div class="cards-grid">
 
-                        <span class="stat-label">
-                            Branches
-                        </span>
+                    <div class="info-card">
+
+                        <h3>🩺 Health & Care</h3>
+
+                        <p>
+                            Health awareness, community health
+                            education and support activities.
+                        </p>
 
                     </div>
 
 
-                    <div class="stat">
+                    <div class="info-card">
 
-                        <span class="stat-number">
-                            31
-                        </span>
+                        <h3>🚨 Disaster Response</h3>
 
-                        <span class="stat-label">
-                            Local Units
-                        </span>
+                        <p>
+                            Disaster preparedness, emergency
+                            response and community resilience.
+                        </p>
 
                     </div>
 
 
-                    <div class="stat">
+                    <div class="info-card">
 
-                        <span class="stat-number">
-                            69,304
-                        </span>
+                        <h3>❤️ Community Service</h3>
 
-                        <span class="stat-label">
-                            Volunteers
-                        </span>
+                        <p>
+                            Volunteer activities that support
+                            communities and vulnerable people.
+                        </p>
 
                     </div>
 
@@ -1364,183 +792,318 @@
             </section>
 
 
+            <!-- ================================
+                 FIRST AID
+            ================================= -->
 
-            <!-- =========================
-                 PROGRAMS + FIRST AID
-            ========================== -->
+            <section id="first-aid" class="dashboard-section">
 
-            <div class="two-columns">
+                <div class="section-header">
 
-
-                <section
-                    class="content-card"
-                    id="programs">
-
-                    <h2>
-                        Club Programs
-                    </h2>
-
-                    <ul class="program-list">
-
-                        <li>
-
-                            <span class="program-icon">
-                                🩺
-                            </span>
-
-                            First Aid Training
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="program-icon">
-                                🤝
-                            </span>
-
-                            Volunteering
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="program-icon">
-                                ❤️
-                            </span>
-
-                            Health Awareness
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="program-icon">
-                                🛡️
-                            </span>
-
-                            Disaster Preparedness
-
-                        </li>
-
-
-                        <li>
-
-                            <span class="program-icon">
-                                👥
-                            </span>
-
-                            Community Service
-
-                        </li>
-
-                    </ul>
-
-                </section>
-
-
-
-                <section
-                    class="content-card"
-                    id="firstaid">
-
-                    <h2>
-                        First Aid Training
-                    </h2>
+                    <h2>🩹 First Aid</h2>
 
                     <p>
-                        Members can participate in
-                        first aid training and
-                        emergency preparedness
-                        activities.
+                        Basic first-aid awareness and emergency
+                        preparedness.
                     </p>
+
+                </div>
+
+
+                <div class="cards-grid">
+
+                    <div class="info-card">
+
+                        <h3>Basic First Aid</h3>
+
+                        <p>
+                            Learn how to respond safely to common
+                            emergencies while waiting for professional
+                            medical assistance.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h3>Emergency Awareness</h3>
+
+                        <p>
+                            Learn how to recognize emergencies and
+                            communicate important information to
+                            emergency responders.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h3>Safety Preparedness</h3>
+
+                        <p>
+                            Learn basic safety measures and how to
+                            prepare for emergencies.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 PRACTICAL TRAINING
+            ================================= -->
+
+            <section id="training" class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h2>🎓 Practical Training</h2>
 
                     <p>
-                        Training can cover basic
-                        emergency awareness,
-                        appropriate first aid
-                        responses and when to seek
-                        professional medical help.
+                        Practical activities for Red Cross members
+                        and volunteers.
                     </p>
 
-                </section>
-
-            </div>
+                </div>
 
 
+                <div class="cards-grid">
 
-            <!-- =========================
+                    <div class="info-card">
+
+                        <h3>🩹 First Aid Practice</h3>
+
+                        <p>
+                            Practical sessions that help members
+                            develop basic emergency-response skills
+                            under appropriate supervision.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h3>🚨 Emergency Drills</h3>
+
+                        <p>
+                            Structured drills to develop teamwork,
+                            communication and emergency preparedness.
+                        </p>
+
+                    </div>
+
+
+                    <div class="info-card">
+
+                        <h3>🤝 Community Service</h3>
+
+                        <p>
+                            Practical volunteer activities designed
+                            to support community awareness and
+                            humanitarian work.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 DOCUMENTS
+            ================================= -->
+
+            <section id="documents" class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h2>📚 Documents</h2>
+
+                    <p>
+                        Access all Red Cross books, training materials
+                        and learning resources in one place.
+                    </p>
+
+                </div>
+
+
+                <div class="documents-box">
+
+                    <div class="documents-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Red Cross Document Library
+                    </h3>
+
+                    <p>
+                        View the books and documents uploaded to the
+                        UR-CE Red Cross document library.
+                    </p>
+
+                    <a
+                        href="documents.html"
+                        class="documents-main-button"
+                    >
+                        📂 Open Documents
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
                  MEETINGS
-            ========================== -->
+            ================================= -->
 
-            <section
-                class="content-card"
-                id="meetings"
-                style="margin-bottom: 30px;">
+            <section id="meetings" class="dashboard-section">
 
-                <h2>
-                    Meetings & Events
-                </h2>
+                <div class="section-header">
 
-                <p>
-                    Regular UR-CE Red Cross
-                    Club meeting:
-                </p>
+                    <h2>📅 Meetings & Events</h2>
+
+                    <p>
+                        Stay informed about Red Cross activities
+                        at UR-CE Rukara Campus.
+                    </p>
+
+                </div>
 
 
-                <div class="meeting-box">
+                <div class="meeting-card">
 
-                    <div class="meeting-row">
+                    <h3>Weekly Red Cross Meeting</h3>
 
-                        <strong>
-                            Day:
-                        </strong>
+                    <p>
+                        <strong>Day:</strong>
+                        Every Monday
+                    </p>
 
-                        <span>
-                            Every Monday
-                        </span>
+                    <p>
+                        <strong>Time:</strong>
+                        17:30
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        Prefab 1
+                    </p>
+
+                    <p>
+                        Members should also check official campus
+                        announcements for changes.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 ANNOUNCEMENTS
+            ================================= -->
+
+            <section id="announcements" class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h2>📢 Announcements</h2>
+
+                    <p>
+                        Important information for Red Cross members.
+                    </p>
+
+                </div>
+
+
+                <div class="announcement">
+
+                    <h3>Welcome to the UR-CE Red Cross Dashboard</h3>
+
+                    <p>
+                        Members can use this dashboard to access
+                        Red Cross information, training materials,
+                        documents and activities.
+                    </p>
+
+                </div>
+
+
+                <div class="announcement">
+
+                    <h3>Training & Volunteer Opportunities</h3>
+
+                    <p>
+                        Check this section regularly for new training
+                        sessions, volunteer activities and campus
+                        announcements.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================
+                 CONTACT
+            ================================= -->
+
+            <section class="dashboard-section">
+
+                <div class="section-header">
+
+                    <h2>📞 Contact</h2>
+
+                    <p>
+                        Rwanda Red Cross Club – UR-CE Rukara Campus
+                    </p>
+
+                </div>
+
+
+                <div class="cards-grid">
+
+                    <div class="info-card">
+
+                        <h3>📍 Location</h3>
+
+                        <p>
+                            University of Rwanda<br>
+                            College of Education<br>
+                            Rukara Campus
+                        </p>
 
                     </div>
 
 
-                    <div class="meeting-row">
+                    <div class="info-card">
 
-                        <strong>
-                            Time:
-                        </strong>
+                        <h3>✉️ Email</h3>
 
-                        <span>
-                            17:30
-                        </span>
+                        <p>
+                            urce.redcross@gmail.com
+                        </p>
 
                     </div>
 
 
-                    <div class="meeting-row">
+                    <div class="info-card">
 
-                        <strong>
-                            Location:
-                        </strong>
+                        <h3>🤝 Membership</h3>
 
-                        <span>
-                            Prefab 1
-                        </span>
-
-                    </div>
-
-
-                    <div class="meeting-row">
-
-                        <strong>
-                            Note:
-                        </strong>
-
-                        <span>
-                            Check campus announcements
-                            for any changes.
-                        </span>
+                        <p>
+                            Contact the UR-CE Red Cross team for
+                            information about membership and activities.
+                        </p>
 
                     </div>
 
@@ -1549,382 +1112,186 @@
             </section>
 
 
-
-            <!-- =========================
-                 ANNOUNCEMENTS + DOCUMENTS
-            ========================== -->
-
-            <div class="two-columns">
-
-
-                <section
-                    class="content-card"
-                    id="announcements">
-
-                    <h2>
-                        Announcements
-                    </h2>
-
-
-                    <div class="announcement">
-
-                        <h4>
-                            Club Activities
-                        </h4>
-
-                        <p>
-                            Members will be informed
-                            about upcoming training
-                            and humanitarian activities.
-                        </p>
-
-                    </div>
-
-
-                    <div class="announcement">
-
-                        <h4>
-                            Weekly Meeting
-                        </h4>
-
-                        <p>
-                            Members are encouraged to
-                            attend the Monday meeting
-                            at 17:30 in Prefab 1.
-                        </p>
-
-                    </div>
-
-
-                    <div class="announcement">
-
-                        <h4>
-                            Volunteer Opportunities
-                        </h4>
-
-                        <p>
-                            Check the member portal
-                            regularly for new
-                            volunteering opportunities.
-                        </p>
-
-                    </div>
-
-                </section>
-
-
-
-                <section
-                    class="content-card"
-                    id="documents">
-
-                    <h2>
-                        Documents
-                    </h2>
-
-
-                    <div class="document-list">
-
-
-                        <div class="document">
-
-                            <span class="document-name">
-                                Club Information
-                            </span>
-
-                            <a
-                                href="index.html"
-                                class="document-btn">
-
-                                View
-
-                            </a>
-
-                        </div>
-
-
-                        <div class="document">
-
-                            <span class="document-name">
-                                First Aid Information
-                            </span>
-
-                            <a
-                                href="#firstaid"
-                                class="document-btn">
-
-                                View
-
-                            </a>
-
-                        </div>
-
-
-                        <div class="document">
-
-                            <span class="document-name">
-                                Meeting Information
-                            </span>
-
-                            <a
-                                href="#meetings"
-                                class="document-btn">
-
-                                View
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </div>
-
-
-
-            <!-- =========================
+            <!-- ================================
                  FOOTER
-            ========================== -->
+            ================================= -->
 
-            <footer>
+            <footer class="dashboard-footer">
 
-                <strong>
-                    Rwanda Red Cross – UR-CE
-                </strong>
+                <p>
+                    © 2026 UR-CE Red Cross Club – Rukara Campus
+                </p>
 
-                <br><br>
-
-                University of Rwanda –
-                College of Education –
-                Rukara Campus
-
-                <br><br>
-
-                Member Portal
+                <p>
+                    Rwanda Red Cross | University of Rwanda
+                </p>
 
             </footer>
 
+        </div>
 
-        </main>
+    </main>
 
-    </div>
+</div>
 
 
+<!-- ================================
+     SUPABASE
+================================= -->
 
-    <!-- =========================
-         SUPABASE
-    ========================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
-    <script src="supabase-config.js"></script>
+<script src="script.js"></script>
 
-    <script src="script.js"></script>
 
+<!-- ================================
+     DASHBOARD AUTH
+================================= -->
 
+<script>
 
-    <!-- =========================
-         AUTHENTICATION + PROFILE
-    ========================== -->
+async function checkUser() {
 
-    <script>
+    try {
 
-        async function checkUser() {
+        const {
+            data: { user },
+            error
+        } = await supabaseClient.auth.getUser();
 
-            try {
 
-                const {
-                    data: {
-                        user
-                    },
-                    error
-                } = await supabaseClient.auth.getUser();
+        if (error || !user) {
 
+            window.location.href = "login.html";
 
-                /*
-                 * If there is no logged-in user,
-                 * send them back to login.
-                 */
+            return;
+        }
 
-                if (error || !user) {
 
-                    window.location.href =
-                        "login.html";
+        const metadata = user.user_metadata || {};
 
-                    return;
-                }
 
+        const fullName =
+            metadata.full_name || "Member";
 
-                /*
-                 * Get information saved during signup.
-                 */
 
-                const metadata =
-                    user.user_metadata || {};
+        const registrationNumber =
+            metadata.registration_number || "Not provided";
 
 
-                const fullName =
-                    metadata.full_name ||
-                    "Member";
+        const role =
+            metadata.role || "Member";
 
 
-                const registrationNumber =
-                    metadata.registration_number ||
-                    "Not provided";
+        /* ================================
+           USER INFORMATION
+        ================================= */
 
 
-                const role =
-                    metadata.role ||
-                    "Member";
+        document.getElementById("userName").textContent =
+            fullName;
 
 
-                /*
-                 * Welcome section
-                 */
+        document.getElementById("topUserName").textContent =
+            fullName;
 
-                const userName =
-                    document.getElementById(
-                        "userName"
-                    );
 
-                if (userName) {
+        document.getElementById("profileName").textContent =
+            fullName;
 
-                    userName.textContent =
-                        fullName;
 
-                }
+        document.getElementById(
+            "profileRegistrationNumber"
+        ).textContent = registrationNumber;
 
 
-                /*
-                 * Top bar
-                 */
+        document.getElementById("profileEmail").textContent =
+            user.email || "Not provided";
 
-                const topUserName =
-                    document.getElementById(
-                        "topUserName"
-                    );
 
-                if (topUserName) {
+        document.getElementById("profileRole").textContent =
+            role;
 
-                    topUserName.textContent =
-                        fullName;
 
-                }
+        /* ================================
+           AVATARS
+        ================================= */
 
 
-                /*
-                 * Profile name
-                 */
+        const firstLetter =
+            fullName.charAt(0).toUpperCase();
 
-                const profileName =
-                    document.getElementById(
-                        "profileName"
-                    );
 
-                if (profileName) {
+        const profileAvatar =
+            document.getElementById("profileAvatar");
 
-                    profileName.textContent =
-                        fullName;
 
-                }
+        const topAvatar =
+            document.getElementById("topAvatar");
 
 
-                /*
-                 * Registration number
-                 */
+        if (profileAvatar) {
 
-                const registrationElement =
-                    document.getElementById(
-                        "profileRegistrationNumber"
-                    );
-
-                if (registrationElement) {
-
-                    registrationElement.textContent =
-                        registrationNumber;
-
-                }
-
-
-                /*
-                 * Email
-                 */
-
-                const profileEmail =
-                    document.getElementById(
-                        "profileEmail"
-                    );
-
-                if (profileEmail) {
-
-                    profileEmail.textContent =
-                        user.email || "Not provided";
-
-                }
-
-
-                /*
-                 * Role
-                 */
-
-                const profileRole =
-                    document.getElementById(
-                        "profileRole"
-                    );
-
-                if (profileRole) {
-
-                    profileRole.textContent =
-                        role;
-
-                }
-
-
-                /*
-                 * Create avatar from first
-                 * letter of user's name.
-                 */
-
-                const avatar =
-                    document.getElementById(
-                        "profileAvatar"
-                    );
-
-                if (avatar) {
-
-                    avatar.textContent =
-                        fullName
-                            .charAt(0)
-                            .toUpperCase();
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "Dashboard error:",
-                    error
-                );
-
-                window.location.href =
-                    "login.html";
-            }
+            profileAvatar.textContent =
+                firstLetter;
 
         }
 
 
-        /*
-         * Run authentication check
-         * when dashboard loads.
-         */
+        if (topAvatar) {
 
-        checkUser();
+            topAvatar.textContent =
+                firstLetter;
 
-    </script>
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+        window.location.href =
+            "login.html";
+    }
+
+}
+
+
+checkUser();
+
+
+/* ================================
+   SIGN OUT
+================================= */
+
+async function logoutUser() {
+
+    const { error } =
+        await supabaseClient.auth.signOut();
+
+
+    if (error) {
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+        return;
+    }
+contact help 0791749671
+
+    window.location.href =
+        "login.html";
+}
+
+</script>
 
 </body>
-
 </html>
