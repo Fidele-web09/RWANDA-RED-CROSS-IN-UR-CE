@@ -1,6 +1,7 @@
 // ========================================
 // RWANDA RED CROSS - UR-CE
 // Website JavaScript
+// Supabase Authentication
 // ========================================
 
 
@@ -9,7 +10,6 @@
 // ========================================
 
 function toggleMenu() {
-
     const menu = document.getElementById("navMenu");
 
     if (menu) {
@@ -26,7 +26,7 @@ const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
 
-    signupForm.addEventListener("submit", function(event) {
+    signupForm.addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
@@ -76,63 +76,80 @@ if (signupForm) {
         }
 
 
-        // Check existing account
-        const existingUser =
-            localStorage.getItem("redCrossUser");
+        // Show loading message
+        message.textContent =
+            "Creating your account...";
 
-        if (existingUser) {
+        message.style.color = "#555";
 
-            const user =
-                JSON.parse(existingUser);
 
-            if (user.email === email) {
+        try {
+
+            const { data, error } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        data: {
+
+                            full_name: fullName,
+
+                            student_id: studentId,
+
+                            role: role
+
+                        }
+
+                    }
+
+                });
+
+
+            // Supabase error
+            if (error) {
 
                 message.textContent =
-                    "An account with this email already exists.";
+                    error.message;
 
                 message.style.color = "#d71920";
 
                 return;
             }
+
+
+            // Account created
+            if (data.user) {
+
+                message.textContent =
+                    "Account created successfully! Please check your email to confirm your account.";
+
+                message.style.color = "green";
+
+
+                // Redirect after a short delay
+                setTimeout(function() {
+
+                    window.location.href =
+                        "login.html";
+
+                }, 2500);
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.textContent =
+                "Something went wrong. Please try again.";
+
+            message.style.color = "#d71920";
+
         }
-
-
-        // Create user
-        const newUser = {
-
-            fullName: fullName,
-
-            email: email,
-
-            studentId: studentId,
-
-            password: password,
-
-            role: role
-
-        };
-
-
-        // Save account
-        localStorage.setItem(
-            "redCrossUser",
-            JSON.stringify(newUser)
-        );
-
-
-        // Success message
-        message.textContent =
-            "Account created successfully! Redirecting to login...";
-
-        message.style.color = "green";
-
-
-        // Go to login
-        setTimeout(function() {
-
-            window.location.href = "login.html";
-
-        }, 1500);
 
     });
 
@@ -148,7 +165,7 @@ const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
 
-    loginForm.addEventListener("submit", function(event) {
+    loginForm.addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
@@ -169,68 +186,63 @@ if (loginForm) {
             document.getElementById("loginMessage");
 
 
-        // Get saved account
-        const savedUser =
-            localStorage.getItem("redCrossUser");
+        // Show loading message
+        message.textContent =
+            "Logging in...";
+
+        message.style.color = "#555";
 
 
-        // No account
-        if (!savedUser) {
+        try {
 
-            message.textContent =
-                "No account found. Please sign up first.";
+            const { data, error } =
+                await supabaseClient.auth.signInWithPassword({
 
-            message.style.color = "#d71920";
+                    email: email,
 
-            return;
-        }
+                    password: password
 
-
-        const user =
-            JSON.parse(savedUser);
+                });
 
 
-        // Check credentials
-        if (
-            email === user.email &&
-            password === user.password
-        ) {
+            // Login error
+            if (error) {
+
+                message.textContent =
+                    "Incorrect email or password.";
+
+                message.style.color = "#d71920";
+
+                console.error(error);
+
+                return;
+            }
 
 
-            // Create login session
-            localStorage.setItem(
-                "redCrossLoggedIn",
-                "true"
-            );
+            // Successful login
+            if (data.user) {
+
+                message.textContent =
+                    "Login successful! Welcome.";
+
+                message.style.color = "green";
 
 
-            // Save current user
-            localStorage.setItem(
-                "redCrossCurrentUser",
-                JSON.stringify(user)
-            );
+                setTimeout(function() {
 
+                    window.location.href =
+                        "dashboard.html";
 
-            message.textContent =
-                "Login successful! Welcome " +
-                user.fullName + ".";
+                }, 1000);
 
-            message.style.color = "green";
+            }
 
+        } catch (error) {
 
-            // Redirect to dashboard
-            setTimeout(function() {
-
-                window.location.href =
-                    "dashboard.html";
-
-            }, 1000);
-
-
-        } else {
+            console.error(error);
 
             message.textContent =
-                "Incorrect email or password.";
+                "Something went wrong. Please try again.";
 
             message.style.color = "#d71920";
 
@@ -246,17 +258,32 @@ if (loginForm) {
 // LOGOUT
 // ========================================
 
-function logoutUser() {
+async function logoutUser() {
 
-    localStorage.removeItem(
-        "redCrossLoggedIn"
-    );
+    try {
 
-    localStorage.removeItem(
-        "redCrossCurrentUser"
-    );
+        const { error } =
+            await supabaseClient.auth.signOut();
+
+        if (error) {
+
+            console.error(error);
+
+            return;
+        }
 
 
-    window.location.href =
-        "index.html";
+        window.location.href =
+            "index.html";
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "index.html";
+
+    }
+
 }
