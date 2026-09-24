@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rwanda Red Cross - UR-CE Club</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -11,11 +14,13 @@
             padding: 0;
             font-family: Arial, sans-serif;
         }
+
         body {
             line-height: 1.6;
             color: #333;
             background-color: #f9f9f9;
         }
+
         header {
             background-color: #d32f2f;
             color: #fff;
@@ -24,155 +29,661 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
+
         header h1 {
             font-size: 1.5rem;
         }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         nav a {
             color: white;
             text-decoration: none;
             margin-left: 15px;
             font-weight: bold;
         }
+
         nav a:hover {
             text-decoration: underline;
         }
+
+        .auth-link {
+            background: white;
+            color: #d32f2f !important;
+            padding: 8px 14px;
+            border-radius: 5px;
+        }
+
+        .signup-link {
+            background: #8b0000;
+            color: white !important;
+            padding: 8px 14px;
+            border-radius: 5px;
+        }
+
         .hero {
             background: #ffebee;
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 4rem 1rem;
             border-bottom: 3px solid #d32f2f;
         }
+
+        .cross {
+            width: 75px;
+            height: 75px;
+            background: #d32f2f;
+            color: white;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
         .hero h2 {
             color: #b71c1c;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
         }
+
         .hero p {
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 1.5rem auto;
         }
+
         .btn {
             display: inline-block;
             background: #d32f2f;
             color: white;
-            padding: 0.7rem 1.5rem;
+            padding: 0.8rem 1.5rem;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
+            margin: 5px;
         }
+
         .btn:hover {
             background: #b71c1c;
         }
+
+        .btn-white {
+            background: white;
+            color: #d32f2f;
+            border: 2px solid #d32f2f;
+        }
+
+        .btn-white:hover {
+            background: #ffebee;
+        }
+
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
+
         .section {
             background: white;
             padding: 2rem;
             margin-bottom: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .section h2 {
             color: #d32f2f;
             margin-bottom: 1rem;
             border-bottom: 2px solid #eee;
             padding-bottom: 0.5rem;
         }
+
+        .section p {
+            margin-bottom: 10px;
+        }
+
         .principles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
         }
+
         .card {
             border: 1px solid #ddd;
-            padding: 1rem;
+            padding: 1.2rem;
             border-radius: 5px;
             border-top: 4px solid #d32f2f;
         }
+
         .card h3 {
             color: #b71c1c;
             margin-bottom: 0.5rem;
         }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .program-card {
+            padding: 25px;
+            background: #fff5f5;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #f1caca;
+        }
+
+        .program-card h3 {
+            color: #b71c1c;
+            margin-bottom: 10px;
+        }
+
+        .donation {
+            background: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .donation h2 {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .donation-number {
+            display: inline-block;
+            background: white;
+            color: #b71c1c;
+            padding: 12px 20px;
+            margin: 10px;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .emergency {
+            background: #fff3cd;
+            border-left: 5px solid #d32f2f;
+            padding: 20px;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 7px;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .contact-card h3 {
+            color: #b71c1c;
+            margin-bottom: 8px;
+        }
+
         footer {
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem 1rem;
             background: #333;
             color: white;
             margin-top: 2rem;
         }
+
+        footer a {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+
+            header {
+                text-align: center;
+                justify-content: center;
+            }
+
+            header h1 {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            nav a {
+                margin: 5px;
+            }
+
+            .hero h2 {
+                font-size: 1.7rem;
+            }
+        }
     </style>
 </head>
+
+
 <body>
 
+    <!-- HEADER -->
     <header>
-        <h1>UR-CE Red Cross Club</h1>
+
+        <h1>✚ UR-CE Red Cross Club</h1>
+
         <nav>
+
             <a href="#about">About</a>
+
             <a href="#principles">Principles</a>
+
+            <a href="#programs">Programs</a>
+
             <a href="#first-aid">First Aid</a>
+
+            <a href="#donation">Donation</a>
+
             <a href="#contact">Contact</a>
+
+            <a href="login.html" class="auth-link">
+                Log In
+            </a>
+
+            <a href="signup.html" class="signup-link">
+                Sign Up
+            </a>
+
         </nav>
+
     </header>
 
+
+    <!-- HERO -->
     <section class="hero">
-        <h2>Humanity, Service, and Emergency Readiness</h2>
-        <p>Official Red Cross Youth Club at University of Rwanda - College of Education, Rukara Campus.</p>
-        <a href="#contact" class="btn">Get Involved</a>
+
+        <div class="cross">✚</div>
+
+        <h2>
+            Humanity, Service, and Emergency Readiness
+        </h2>
+
+        <p>
+            Welcome to the Rwanda Red Cross Club at
+            University of Rwanda - College of Education,
+            Rukara Campus.
+        </p>
+
+        <a href="signup.html" class="btn">
+            Join Our Club
+        </a>
+
+        <a href="#about" class="btn btn-white">
+            Learn More
+        </a>
+
     </section>
 
+
     <div class="container">
-        
+
+
+        <!-- ABOUT -->
         <section id="about" class="section">
+
             <h2>About Our Club</h2>
-            <p>The UR-CE Red Cross Club is a student-led humanitarian movement dedicated to promoting health, disaster preparedness, and first aid awareness across Rukara Campus and the surrounding community. Through volunteerism and practical training, we empower students to act as immediate responders during emergencies.</p>
+
+            <p>
+                The UR-CE Red Cross Club is a student-led
+                humanitarian movement dedicated to promoting
+                health, disaster preparedness, first aid
+                awareness, volunteerism, and community
+                service.
+            </p>
+
+            <p>
+                The club brings students together to develop
+                practical skills, support vulnerable people,
+                promote safety, and contribute to humanitarian
+                activities within the University of Rwanda -
+                College of Education and surrounding communities.
+            </p>
+
         </section>
 
+
+        <!-- PRINCIPLES -->
         <section id="principles" class="section">
+
             <h2>Fundamental Principles</h2>
+
             <div class="principles-grid">
+
                 <div class="card">
                     <h3>Humanity</h3>
-                    <p>Preventing and alleviating human suffering wherever it may be found, protecting life and health.</p>
+
+                    <p>
+                        Preventing and alleviating human suffering
+                        wherever it may be found and protecting
+                        life and health.
+                    </p>
                 </div>
+
+
                 <div class="card">
                     <h3>Impartiality</h3>
-                    <p>Making no discrimination based on nationality, race, religious beliefs, class, or political opinions.</p>
+
+                    <p>
+                        Providing assistance without discrimination
+                        and giving priority to those with the
+                        greatest humanitarian needs.
+                    </p>
                 </div>
+
+
                 <div class="card">
                     <h3>Voluntary Service</h3>
-                    <p>A prompt voluntary relief movement not prompted in any manner by desire for financial gain.</p>
+
+                    <p>
+                        A voluntary humanitarian movement dedicated
+                        to helping people rather than seeking
+                        financial gain.
+                    </p>
                 </div>
+
+
+                <div class="card">
+                    <h3>Unity</h3>
+
+                    <p>
+                        There can be only one Red Cross or Red
+                        Crescent Society in any one country,
+                        open to all.
+                    </p>
+                </div>
+
             </div>
+
         </section>
 
+
+        <!-- PROGRAMS -->
+        <section id="programs" class="section">
+
+            <h2>Our Programs</h2>
+
+            <div class="program-grid">
+
+                <div class="program-card">
+
+                    <h3>First Aid Training</h3>
+
+                    <p>
+                        Practical learning that helps students
+                        respond appropriately during emergencies.
+                    </p>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <h3>Volunteering</h3>
+
+                    <p>
+                        Opportunities for students to participate
+                        in humanitarian and community activities.
+                    </p>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <h3>Health Awareness</h3>
+
+                    <p>
+                        Activities promoting health, safety,
+                        prevention, and community well-being.
+                    </p>
+
+                </div>
+
+
+                <div class="program-card">
+
+                    <h3>Disaster Preparedness</h3>
+
+                    <p>
+                        Awareness and preparedness activities
+                        designed to strengthen community resilience.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FIRST AID -->
         <section id="first-aid" class="section">
+
             <h2>Basic First Aid Guidelines</h2>
+
             <ul>
-                <li><strong>DRCAB Protocol:</strong> Check Danger, Response, Circulation, Airway, and Breathing during accidents.</li>
-                <li><strong>Fainting:</strong> Place the individual in the recovery position and keep airway clear.</li>
-                <li><strong>Bleeding:</strong> Apply direct pressure to the wound with a clean cloth or bandage.</li>
-                <li><strong>Burns:</strong> Cool the affected area with clean running water for at least 10–15 minutes.</li>
+
+                <li>
+                    <strong>Check Safety:</strong>
+                    Make sure the environment is safe before
+                    helping someone.
+                </li>
+
+                <li>
+                    <strong>Check Response:</strong>
+                    Check whether the person responds when spoken
+                    to or gently stimulated.
+                </li>
+
+                <li>
+                    <strong>Breathing:</strong>
+                    Check for normal breathing and seek emergency
+                    assistance when necessary.
+                </li>
+
+                <li>
+                    <strong>Bleeding:</strong>
+                    Apply firm direct pressure with a clean
+                    dressing or cloth.
+                </li>
+
+                <li>
+                    <strong>Burns:</strong>
+                    Cool a burn with clean running water and
+                    seek medical assistance when appropriate.
+                </li>
+
             </ul>
+
         </section>
 
+
+        <!-- EMERGENCY -->
+        <section class="emergency">
+
+            <h2>Emergency Awareness</h2>
+
+            <p>
+                In a serious emergency, seek professional
+                medical or emergency assistance as soon as
+                possible. Do not put yourself or the affected
+                person in additional danger.
+            </p>
+
+        </section>
+
+
+        <!-- DONATION -->
+        <section id="donation" class="donation">
+
+            <h2>Support Our Humanitarian Activities</h2>
+
+            <p>
+                Your contribution can help support humanitarian
+                activities, awareness campaigns, training, and
+                community service.
+            </p>
+
+            <p>
+                For donation information, please use the
+                following contact numbers:
+            </p>
+
+            <div>
+
+                <span class="donation-number">
+                    0791749671
+                </span>
+
+                <span class="donation-number">
+                    0782027591
+                </span>
+
+            </div>
+
+            <p>
+                Please confirm the recipient and purpose of the
+                contribution before sending any funds.
+            </p>
+
+        </section>
+
+
+        <!-- JOIN -->
+        <section class="section">
+
+            <h2>Become a Member</h2>
+
+            <p>
+                Students interested in joining the UR-CE Red
+                Cross Club can create an account through our
+                online membership system.
+            </p>
+
+            <a href="signup.html" class="btn">
+                Create Account
+            </a>
+
+            <a href="login.html" class="btn btn-white">
+                Member Login
+            </a>
+
+        </section>
+
+
+        <!-- CONTACT -->
         <section id="contact" class="section">
+
             <h2>Contact & Join Us</h2>
-            <p><strong>Campus Location:</strong> University of Rwanda - College of Education, Rukara Campus</p>
-            <p><strong>Email:</strong> urce.redcross@gmail.com</p>
-            <p><strong>Weekly Meetings:</strong> Check campus announcements for times and locations.</p>
+
+            <div class="contact-grid">
+
+                <div class="contact-card">
+
+                    <h3>Campus Location</h3>
+
+                    <p>
+                        University of Rwanda -
+                        College of Education,
+                        Rukara Campus
+                    </p>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <h3>Email</h3>
+
+                    <p>
+                        urce.redcross@gmail.com
+                    </p>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <h3>Phone</h3>
+
+                    <p>
+                        0791749671
+                    </p>
+
+                    <p>
+                        0782027591
+                    </p>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <h3>Weekly Meetings</h3>
+
+                    <p>
+                        Every Monday 17:30 in prefab 1
+                        meeting times and locations.
+                    </p>
+
+                </div>
+
+            </div>
+
         </section>
 
     </div>
 
+
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; UR-CE Red Cross Club | Rukara Campus</p>
+
+        <p>
+            ✚ Rwanda Red Cross - UR-CE Club
+        </p>
+
+        <p>
+            University of Rwanda - College of Education,
+            Rukara Campus
+        </p>
+
+        <p>
+            &copy; 2026 UR-CE Red Cross Club.
+            All rights reserved.
+        </p>
+
     </footer>
 
+
+    <!-- WEBSITE JAVASCRIPT -->
+    <script src="script.js"></script>
+
 </body>
+
 </html>
