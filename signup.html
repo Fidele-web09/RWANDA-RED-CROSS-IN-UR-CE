@@ -4,261 +4,295 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sign Up - Rwanda Red Cross UR-CE</title>
+    <title>Sign Up | UR-CE Red Cross</title>
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #b40000, #e31b23, #7a0000);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .floating-cross {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 70px;
+            animation: floatCross 8s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .cross1 {
+            top: 8%;
+            left: 8%;
+        }
+
+        .cross2 {
+            top: 65%;
+            left: 15%;
+            font-size: 100px;
+            animation-delay: 2s;
+        }
+
+        .cross3 {
+            top: 20%;
+            right: 10%;
+            font-size: 90px;
+            animation-delay: 1s;
+        }
+
+        .cross4 {
+            bottom: 5%;
+            right: 15%;
+            font-size: 120px;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatCross {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-25px) rotate(10deg);
+            }
+        }
+
+        .signup-card {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            background: #e31b23;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin: 0 auto 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #b40000;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #e31b23;
+            box-shadow: 0 0 0 3px rgba(227, 27, 35, 0.1);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #e31b23;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #b40000;
+        }
+
+        #signupMessage {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #d71920;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .security-note {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f7f7f7;
+            border-radius: 8px;
+            color: #666;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .signup-card {
+                padding: 25px;
+                margin: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header class="navbar">
+    <div class="floating-cross cross1">✚</div>
+    <div class="floating-cross cross2">✚</div>
+    <div class="floating-cross cross3">✚</div>
+    <div class="floating-cross cross4">✚</div>
 
-        <div class="navbar-container">
+    <div class="signup-card">
 
-            <a href="index.html" class="logo">
+        <div class="logo">✚</div>
 
-                <div class="cross-symbol">+</div>
+        <h1>UR-CE Red Cross</h1>
 
-                <div class="logo-text">
-                    <strong>RWANDA RED CROSS</strong>
-                    <span>UR-CE</span>
-                </div>
-
-            </a>
-
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="login.html">Log In</a>
-            </nav>
-
+        <div class="subtitle">
+            Create Your Member Account
         </div>
 
-    </header>
-
-
-    <!-- Sign Up Section -->
-    <main>
-
-        <section class="section">
-
-            <div class="section-heading">
-
-                <span>JOIN OUR COMMUNITY</span>
-
-                <h2>
-                    Create Your Account
-                </h2>
-
-                <p>
-                    Sign up to participate in Rwanda Red Cross
-                    activities at UR-CE.
-                </p>
-
-            </div>
-
-
-            <div class="auth-container">
-
-                <form id="signupForm" class="auth-form">
-
-                    <!-- Full Name -->
-                    <div class="form-group">
-
-                        <label for="fullName">
-                            Full Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="fullName"
-                            name="fullName"
-                            placeholder="Enter your full name"
-                            required
-                        >
-
-                    </div>
-
-
-                    <!-- Email -->
-                    <div class="form-group">
-
-                        <label for="email">
-                            Email Address
-                        </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            required
-                        >
-
-                    </div>
-
-
-                    <!-- Student ID -->
-                    <div class="form-group">
-
-                        <label for="studentId">
-                            Student ID
-                        </label>
-
-                        <input
-                            type="text"
-                            id="studentId"
-                            name="studentId"
-                            placeholder="Enter your student ID"
-                        >
-
-                    </div>
-
-
-                    <!-- Password -->
-                    <div class="form-group">
-
-                        <label for="password">
-                            Password
-                        </label>
-
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Create a password"
-                            required
-                            minlength="8"
-                        >
-
-                    </div>
-
-
-                    <!-- Confirm Password -->
-                    <div class="form-group">
-
-                        <label for="confirmPassword">
-                            Confirm Password
-                        </label>
-
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            placeholder="Confirm your password"
-                            required
-                            minlength="8"
-                        >
-
-                    </div>
-
-
-                    <!-- Account Type -->
-                    <div class="form-group">
-
-                        <label for="role">
-                            Account Type
-                        </label>
-
-                        <select id="role" name="role" required>
-
-                            <option value="">
-                                Select account type
-                            </option>
-
-                            <option value="student">
-                                Student
-                            </option>
-
-                            <option value="volunteer">
-                                Volunteer
-                            </option>
-
-                            <option value="member">
-                                Red Cross Member
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <!-- Terms -->
-                    <div class="form-checkbox">
-
-                        <input
-                            type="checkbox"
-                            id="terms"
-                            required
-                        >
-
-                        <label for="terms">
-                            I agree to the website terms and
-                            conditions.
-                        </label>
-
-                    </div>
-
-
-                    <!-- Submit -->
-                    <button
-                        type="submit"
-                        class="btn btn-red auth-button"
-                    >
-                        Create Account
-                    </button>
-
-
-                    <!-- Message -->
-                    <p id="signupMessage"></p>
-
-
-                    <!-- Login -->
-                    <p class="auth-switch">
-
-                        Already have an account?
-
-                        <a href="login.html">
-                            Log In
-                        </a>
-
-                    </p>
-
-                </form>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- Footer -->
-    <footer class="footer">
-
-        <div class="footer-cross">
-            +
+        <form id="signupForm">
+
+            <label for="fullName">Full Name</label>
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Enter your full name"
+                required
+            >
+
+            <label for="registrationNumber">
+                Registration Number
+            </label>
+
+            <input
+                type="text"
+                id="registrationNumber"
+                placeholder="Enter your registration number"
+                required
+            >
+
+            <label for="email">Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="role">Role</label>
+
+            <select id="role" required>
+                <option value="">Select your role</option>
+                <option value="Member">Member</option>
+                <option value="Volunteer">Volunteer</option>
+                <option value="Student Volunteer">Student Volunteer</option>
+            </select>
+
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="At least 8 characters"
+                minlength="8"
+                required
+            >
+
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                required
+            >
+
+            <button type="submit">
+                Create Account
+            </button>
+
+            <div id="signupMessage"></div>
+
+        </form>
+
+        <div class="security-note">
+            Your account information is securely managed through Supabase.
         </div>
 
-        <div class="footer-title">
-            Rwanda Red Cross
+        <div class="links">
+            Already have an account?
+            <a href="login.html">Log In</a>
         </div>
 
-        <div class="footer-subtitle">
-            University of Rwanda - College of Education
+        <div class="links">
+            <a href="index.html">← Back to Website</a>
         </div>
 
-        <p class="copyright">
-            © 2026 Rwanda Red Cross - UR-CE.
-            All rights reserved.
-        </p>
+    </div>
 
-    </footer>
-
-
+    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-<script src="script.js"></script>
+
+    <!-- Your Supabase configuration -->
+    <script src="supabase-config.js"></script>
+
+    <!-- Website JavaScript -->
+    <script src="script.js"></script>
 
 </body>
 </html>
