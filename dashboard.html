@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Rwanda Red Cross UR-CE</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="navbar">
+
+        <div class="navbar-container">
+
+            <a href="index.html" class="logo">
+
+                <div class="cross-symbol">
+                    +
+                </div>
+
+                <div class="logo-text">
+
+                    <strong>
+                        RWANDA RED CROSS
+                    </strong>
+
+                    <span>
+                        UR-CE
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <nav>
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="#profile">
+                    Profile
+                </a>
+
+                <a href="#activities">
+                    Activities
+                </a>
+
+                <button
+                    onclick="logoutUser()"
+                    class="nav-join logout-button">
+
+                    Sign Out
+
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <main>
+
+        <section class="dashboard-hero">
+
+            <div class="dashboard-container">
+
+                <div>
+
+                    <span class="hero-label">
+                        MEMBER DASHBOARD
+                    </span>
+
+                    <h1>
+                        Welcome,
+                        <span id="userName">
+                            Member
+                        </span>
+                    </h1>
+
+                    <p>
+                        Welcome to your Rwanda Red Cross
+                        UR-CE account.
+                    </p>
+
+                </div>
+
+
+                <div class="dashboard-cross">
+                    +
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= PROFILE ================= -->
+
+        <section
+            id="profile"
+            class="section">
+
+            <div class="section-heading">
+
+                <span>
+                    MY ACCOUNT
+                </span>
+
+                <h2>
+                    Profile Information
+                </h2>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="profile-icon">
+                    👤
+                </div>
+
+
+                <div class="profile-information">
+
+                    <h3 id="profileName">
+                        Member
+                    </h3>
+
+
+                    <p>
+                        <strong>
+                            Email:
+                        </strong>
+
+                        <span id="profileEmail">
+                            -
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <strong>
+                            Student ID:
+                        </strong>
+
+                        <span id="profileStudentId">
+                            -
+                        </span>
+                    </p>
+
+
+                    <p>
+                        <strong>
+                            Account Type:
+                        </strong>
+
+                        <span id="profileRole">
+                            -
+                        </span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= ACTIVITIES ================= -->
+
+        <section
+            id="activities"
+            class="section section-light">
+
+            <div class="section-heading">
+
+                <span>
+                    MY ACTIVITIES
+                </span>
+
+                <h2>
+                    Rwanda Red Cross Activities
+                </h2>
+
+                <p>
+                    Explore opportunities to learn,
+                    volunteer and serve your community.
+                </p>
+
+            </div>
+
+
+            <div class="programs">
+
+
+                <!-- First Aid -->
+
+                <article class="program-card">
+
+                    <div class="program-image">
+                        🩹
+                    </div>
+
+                    <div class="program-content">
+
+                        <div class="program-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            First Aid Training
+                        </h3>
+
+                        <p>
+                            Participate in first-aid
+                            learning and practical
+                            training activities.
+                        </p>
+
+                        <a
+                            href="#training"
+                            class="learn-more">
+
+                            View Training →
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- Volunteer -->
+
+                <article class="program-card">
+
+                    <div class="program-image">
+                        🤝
+                    </div>
+
+                    <div class="program-content">
+
+                        <div class="program-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            Volunteer Activities
+                        </h3>
+
+                        <p>
+                            Discover community service
+                            and humanitarian activities.
+                        </p>
+
+                        <a
+                            href="#volunteer"
+                            class="learn-more">
+
+                            Volunteer →
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- Events -->
+
+                <article class="program-card">
+
+                    <div class="program-image">
+                        📅
+                    </div>
+
+                    <div class="program-content">
+
+                        <div class="program-icon">
+                            +
+                        </div>
+
+                        <h3>
+                            Events
+                        </h3>
+
+                        <p>
+                            Stay informed about upcoming
+                            Red Cross activities and events.
+                        </p>
+
+                        <a
+                            href="#events"
+                            class="learn-more">
+
+                            View Events →
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= TRAINING ================= -->
+
+        <section
+            id="training"
+            class="training">
+
+            <div class="training-content">
+
+                <span>
+                    TRAINING
+                </span>
+
+                <h2>
+                    Learn and Develop Your Skills
+                </h2>
+
+                <p>
+                    Access information about humanitarian
+                    training, first aid and community
+                    service activities.
+                </p>
+
+                <a
+                    href="#activities"
+                    class="btn btn-white">
+
+                    Explore Training
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= VOLUNTEER ================= -->
+
+        <section
+            id="volunteer"
+            class="section">
+
+            <div class="section-heading">
+
+                <span>
+                    VOLUNTEER
+                </span>
+
+                <h2>
+                    Community Service
+                </h2>
+
+                <p>
+                    Your participation can contribute to
+                    humanitarian and community activities.
+                </p>
+
+            </div>
+
+
+            <div class="volunteer dashboard-volunteer">
+
+                <div>
+
+                    <span>
+                        READY TO SERVE?
+                    </span>
+
+                    <h2>
+                        Participate in Community Activities
+                    </h2>
+
+                    <p>
+                        Keep checking your dashboard for
+                        available activities and events.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= EVENTS ================= -->
+
+        <section
+            id="events"
+            class="section section-light">
+
+            <div class="section-heading">
+
+                <span>
+                    EVENTS
+                </span>
+
+                <h2>
+                    Upcoming Activities
+                </h2>
+
+            </div>
+
+
+            <div class="events">
+
+
+                <article class="event-card">
+
+                    <div class="event-date">
+
+                        <strong>
+                            +
+                        </strong>
+
+                        <span>
+                            RED CROSS
+                        </span>
+
+                    </div>
+
+
+                    <div class="event-content">
+
+                        <h3>
+                            First Aid Session
+                        </h3>
+
+                        <p>
+                            Training and learning activities
+                            for members.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="event-card">
+
+                    <div class="event-date">
+
+                        <strong>
+                            +
+                        </strong>
+
+                        <span>
+                            COMMUNITY
+                        </span>
+
+                    </div>
+
+
+                    <div class="event-content">
+
+                        <h3>
+                            Community Service
+                        </h3>
+
+                        <p>
+                            Participate in community
+                            support activities.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= SIGN OUT ================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Account
+                </h2>
+
+                <p>
+                    When you finish using your account,
+                    remember to sign out.
+                </p>
+
+
+                <button
+                    onclick="logoutUser()"
+                    class="btn btn-red">
+
+                    Sign Out
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-cross">
+            +
+        </div>
+
+        <div class="footer-title">
+            Rwanda Red Cross
+        </div>
+
+        <div class="footer-subtitle">
+            University of Rwanda - College of Education
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html#about">
+                About
+            </a>
+
+            <a href="index.html#programs">
+                Programs
+            </a>
+
+            <a href="index.html#contact">
+                Contact
+            </a>
+
+        </div>
+
+
+        <p class="copyright">
+
+            © 2026 Rwanda Red Cross - UR-CE.
+            All rights reserved.
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- ================= DASHBOARD JAVASCRIPT ================= -->
+
+    <script>
+
+        // Get logged-in status
+        const loggedIn =
+            localStorage.getItem("redCrossLoggedIn");
+
+
+        // If user is not logged in,
+        // send them back to login page.
+        if (loggedIn !== "true") {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        // Get current user
+        const savedUser =
+            localStorage.getItem(
+                "redCrossCurrentUser"
+            );
+
+
+        if (savedUser) {
+
+            const user =
+                JSON.parse(savedUser);
+
+
+            // Display name
+            document.getElementById(
+                "userName"
+            ).textContent =
+                user.fullName;
+
+
+            document.getElementById(
+                "profileName"
+            ).textContent =
+                user.fullName;
+
+
+            // Display email
+            document.getElementById(
+                "profileEmail"
+            ).textContent =
+                user.email;
+
+
+            // Display student ID
+            document.getElementById(
+                "profileStudentId"
+            ).textContent =
+                user.studentId || "Not provided";
+
+
+            // Display role
+            document.getElementById(
+                "profileRole"
+            ).textContent =
+                user.role;
+
+        }
+
+
+
+        // ==============================
+        // SIGN OUT
+        // ==============================
+
+        function logoutUser() {
+
+            localStorage.removeItem(
+                "redCrossLoggedIn"
+            );
+
+            localStorage.removeItem(
+                "redCrossCurrentUser"
+            );
+
+
+            window.location.href =
+                "index.html";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
